@@ -20,10 +20,10 @@ const useFetchLocation = () => {
       const json = await response.json();
 
       setDataLocation(json);
-      setLoadingLocation(false);
     } catch (error) {
-      setLoadingLocation(false);
       setErrorLocation(error);
+    } finally {
+      setLoadingLocation(false);
     }
   }, []);
 

@@ -22,10 +22,10 @@ const useFetchWeather = () => {
 
       const json = await response.json();
       setDataWeather(json);
-      setLoadingWeather(false);
     } catch (error) {
-      setLoadingWeather(false);
       setErrorWeather(error);
+    } finally {
+      setLoadingWeather(false);
     }
   }, []);
 

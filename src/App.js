@@ -1,7 +1,7 @@
 import './App.scss';
 import { Input } from './components/Input';
 import { InputContext } from './contexts/InputContext';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useFetchLocation } from './hooks/useFetchLocation';
 import { useFetchWeather } from './hooks/useFetchWeather';
 
@@ -12,14 +12,21 @@ function App() {
   const [selectedCity, setSelectedCity] = useState(null);
   const { dataLocation, setDataLocation, fetchLocation } = useFetchLocation();
   const { dataWeather, fetchWeather } = useFetchWeather();
+  const history = useRef([]);
 
-  const selectItem = (lon, lat) => {
+  const selectItem = (item) => {
+    const { lon, lat } = item;
     setLon(lon);
     setLat(lat);
     fetchWeather(lon, lat);
-    // clear input and array with fetched locations
     setInputText('');
     setDataLocation([]);
+
+    history.current.push(item);
+  };
+
+  const showHistory = () => {
+    setDataLocation(history.current);
   };
 
   return (
@@ -28,13 +35,13 @@ function App() {
         <p>
           Selected city {selectedCity} gps: {lon} : {lat}
         </p>
-        <Input />
+        <Input onClear={showHistory} />
         <ul className='locations-list'>
           {dataLocation.map((item, index) => (
             <li
               className='locations-item'
               onClick={() => {
-                selectItem(item.lon, item.lat);
+                selectItem(item);
                 setSelectedCity(item.address.name);
               }}
               key={index}
@@ -43,11 +50,11 @@ function App() {
             </li>
           ))}
         </ul>
-        <ul className='weather-list'>
-          <li>
+        <div className='weather-list'>
+          <p>
             Current temperature in {selectedCity}: {dataWeather?.main?.temp}
-          </li>
-        </ul>
+          </p>
+        </div>
       </div>
     </InputContext.Provider>
   );

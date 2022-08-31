@@ -3,18 +3,24 @@ import { InputContext } from '../contexts/InputContext';
 
 import { debounce } from './debounce';
 
-const Input = () => {
+const Input = ({ onClear }) => {
   const { inputText, setInputText, fetchLocation } = useContext(InputContext);
 
-  const fetchLocationDebounced = useMemo(() => debounce(fetchLocation, 1000), [fetchLocation]);
+  const [fetchLocationDebounced, cancelDebounce] = useMemo(() => debounce(fetchLocation, 1000), [fetchLocation]);
 
   // useCallback = useMemo(() => () => ...)
 
   const handleChange = (e) => {
     const inputValue = e.target.value;
-    setInputText(inputValue);
     // turn off useFetchLocation() when emptying the input
-    if (inputValue.length > 0) fetchLocationDebounced(inputValue);
+    if (inputValue.length > 0) {
+      fetchLocationDebounced(inputValue);
+    } else {
+      cancelDebounce();
+      onClear();
+    }
+
+    setInputText(inputValue);
   };
 
   return (

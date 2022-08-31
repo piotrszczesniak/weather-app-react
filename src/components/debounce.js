@@ -4,12 +4,17 @@ export const debounce = (fn, delay) => {
   let timer; // = 1
 
   // incrementCountDebounced
-  return function funcDebounced(...args) {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      fn(...args);
-    }, delay);
-  };
+  return [
+    function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn(...args);
+      }, delay);
+    },
+    function () {
+      clearTimeout(timer);
+    },
+  ];
 };
 
 // fn
