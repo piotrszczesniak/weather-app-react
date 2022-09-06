@@ -27,8 +27,6 @@ const useFetchLocation = () => {
     }
   }, []);
 
-  // debouncing https://www.youtube.com/watch?v=F2zF8fu7aG0
-
   return { dataLocation, setDataLocation, loadingLocation, errorLocation, fetchLocation };
 };
 

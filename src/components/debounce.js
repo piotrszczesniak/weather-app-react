@@ -1,7 +1,7 @@
 // let count = 0;
 
 export const debounce = (fn, delay) => {
-  let timer; // = 1
+  let timer;
 
   // incrementCountDebounced
   return [
@@ -16,6 +16,9 @@ export const debounce = (fn, delay) => {
     },
   ];
 };
+
+// https://codepen.io/piotrszczesniak/pen/ExEJORe
+// debouncing https://www.youtube.com/watch?v=F2zF8fu7aG0
 
 // fn
 // let incrementCount = (incAmount) => {

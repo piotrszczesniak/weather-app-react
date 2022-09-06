@@ -14,6 +14,8 @@ function App() {
   const { dataWeather, fetchWeather } = useFetchWeather();
   const history = useRef([]);
 
+  // useRef explained --> https://youtu.be/LlvBzyy-558?t=2280
+
   const selectItem = (item) => {
     const { lon, lat } = item;
     setLon(lon);
@@ -21,8 +23,13 @@ function App() {
     fetchWeather(lon, lat);
     setInputText('');
     setDataLocation([]);
+    const itemID = item.place_id;
 
-    history.current.push(item);
+    // filter out existing item and put it again as the latest item
+    // ! isnt working...
+    history.current.filter((data) => data.place_id !== itemID).push(item);
+
+    // history.current.push(item);
   };
 
   const showHistory = () => {
