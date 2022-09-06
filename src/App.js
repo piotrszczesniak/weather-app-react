@@ -25,15 +25,12 @@ function App() {
     setDataLocation([]);
     const itemID = item.place_id;
 
-    // filter out existing item and put it again as the latest item
-    // ! isnt working...
-    history.current.filter((data) => data.place_id !== itemID).push(item);
-
-    // history.current.push(item);
+    history.current = history.current.filter((data) => data.place_id !== itemID);
+    history.current.push(item);
   };
 
   const showHistory = () => {
-    setDataLocation(history.current);
+    setDataLocation(history.current.reverse());
   };
 
   return (
