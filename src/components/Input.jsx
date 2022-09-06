@@ -1,5 +1,9 @@
 import React, { useContext, useMemo } from 'react';
 import { InputContext } from '../contexts/InputContext';
+import { InputBase, Paper, Container } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+
+// import Paper from '@mui/material/Paper';
 
 import { debounce } from './debounce';
 
@@ -27,7 +31,20 @@ const Input = ({ onClear }) => {
   return (
     <>
       <div className='input-wrapper'>
-        <input type='text' value={inputText} className='input-input' placeholder='Enter city name' onChange={handleChange} />
+        <Container maxWidth='sm' sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Paper component='form' sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}>
+            <InputBase
+              sx={{ p: 1, ml: 1, flex: 1 }}
+              placeholder='Check the weather in your city...'
+              inputProps={{ 'aria-label': 'check the weather' }}
+              type='text'
+              value={inputText}
+              className='input-input'
+              onChange={handleChange}
+            />
+            <SearchIcon sx={{ p: '10px' }} />
+          </Paper>
+        </Container>
       </div>
     </>
   );

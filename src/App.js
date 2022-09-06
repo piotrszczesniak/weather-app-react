@@ -5,6 +5,8 @@ import { useState, useRef } from 'react';
 import { useFetchLocation } from './hooks/useFetchLocation';
 import { useFetchWeather } from './hooks/useFetchWeather';
 
+import { Box, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+
 function App() {
   const [inputText, setInputText] = useState('');
   const [lon, setLon] = useState(null);
@@ -40,20 +42,24 @@ function App() {
           Selected city {selectedCity} gps: {lon} : {lat}
         </p>
         <Input onClear={showHistory} />
-        <ul className='locations-list'>
-          {dataLocation.map((item, index) => (
-            <li
-              className='locations-item'
-              onClick={() => {
-                selectItem(item);
-                setSelectedCity(item.address.name);
-              }}
-              key={index}
-            >
-              {item.display_place}, {item.display_address}
-            </li>
-          ))}
-        </ul>
+        <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+          <List className='locations-list'>
+            {dataLocation.map((item, index) => (
+              <ListItem
+                className='locations-item'
+                onClick={() => {
+                  selectItem(item);
+                  setSelectedCity(item.address.name);
+                }}
+                key={index}
+              >
+                <ListItemButton>
+                  <ListItemText primary={`${item.display_place}, ${item.display_address} `} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
         <div className='weather-list'>
           <p>
             Current temperature in {selectedCity}: {dataWeather?.main?.temp}
