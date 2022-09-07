@@ -5,7 +5,7 @@ import { useState, useRef } from 'react';
 import { useFetchLocation } from './hooks/useFetchLocation';
 import { useFetchWeather } from './hooks/useFetchWeather';
 
-import { Box, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Alert, Box, Container, List, ListItem, ListItemButton, ListItemText, Stack } from '@mui/material';
 
 function App() {
   const [inputText, setInputText] = useState('');
@@ -25,8 +25,8 @@ function App() {
     fetchWeather(lon, lat);
     setInputText('');
     setDataLocation([]);
-    const itemID = item.place_id;
 
+    const itemID = item.place_id;
     history.current = history.current.filter((data) => data.place_id !== itemID);
     history.current.push(item);
   };
@@ -35,15 +35,14 @@ function App() {
     setDataLocation(history.current.reverse());
   };
 
+  // TODO: implement loading / error
+
   return (
     <InputContext.Provider value={{ inputText, setInputText, fetchLocation }}>
-      <div className='App'>
-        <p>
-          Selected city {selectedCity} gps: {lon} : {lat}
-        </p>
+      <Container maxWidth='sm'>
         <Input onClear={showHistory} />
-        <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-          <List className='locations-list'>
+        <Box sx={{ display: 'flex', justifyContent: 'start', width: '100%', bgcolor: 'background.paper' }}>
+          <List sx={{ width: '100%' }}>
             {dataLocation.map((item, index) => (
               <ListItem
                 className='locations-item'
@@ -60,12 +59,15 @@ function App() {
             ))}
           </List>
         </Box>
-        <div className='weather-list'>
-          <p>
+        <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert severity='success'>
             Current temperature in {selectedCity}: {dataWeather?.main?.temp}
-          </p>
-        </div>
-      </div>
+          </Alert>
+          <Alert severity='info'>
+            Selected location {selectedCity} gps: {lon} : {lat}
+          </Alert>
+        </Stack>
+      </Container>
     </InputContext.Provider>
   );
 }
