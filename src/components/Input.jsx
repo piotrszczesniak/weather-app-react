@@ -1,17 +1,11 @@
-import React, { useContext, useMemo } from 'react';
-import { InputContext } from '../contexts/InputContext';
+import React, { useMemo } from 'react';
 import { InputBase, Paper } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-// import Paper from '@mui/material/Paper';
-
 import { debounce } from '../utils/debounce';
 
-const Input = ({ onClear }) => {
-  // bring vars from the context
-  // TODO: remove context - use props instead
-  const { inputText, setInputText, fetchLocation } = useContext(InputContext);
-
+const Input = ({ onClear, inputText, setInputText, fetchLocation }) => {
+  //
   const [fetchLocationDebounced, cancelDebounce] = useMemo(() => debounce(fetchLocation, 1000), [fetchLocation]);
 
   // useCallback = useMemo(() => () => ...)

@@ -16,6 +16,8 @@ const useFetchWeather = () => {
       urlParamsWeather.set('appid', API_KEY_WEATHER);
       urlParamsWeather.set('units', units);
 
+      setLoadingWeather(true);
+
       // console.log(urlParamsWeather.toString());
 
       const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?${urlParamsWeather.toString()}`);
