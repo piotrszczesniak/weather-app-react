@@ -1,9 +1,9 @@
-import './App.scss';
-import { Input } from './components/Input';
+import { Input } from './components/Input/Input';
 import { InputContext } from './contexts/InputContext';
 import { useState, useRef } from 'react';
 import { useFetchLocation } from './hooks/useFetchLocation';
 import { useFetchWeather } from './hooks/useFetchWeather';
+import styles from './App.module.scss';
 
 import { Alert, Box, Container, List, ListItem, ListItemButton, ListItemText, Stack } from '@mui/material';
 
@@ -43,8 +43,8 @@ function App() {
     <InputContext.Provider value={{ inputText, setInputText, fetchLocation }}>
       <Container maxWidth='sm'>
         <Input onClear={showHistory} inputText={inputText} setInputText={setInputText} fetchLocation={fetchLocation} />
-        <Box sx={{ display: 'flex', justifyContent: 'start', width: '100%', bgcolor: 'background.paper' }}>
-          <List sx={{ width: '100%' }}>
+        <Box className={styles.Box}>
+          <List className={styles.List}>
             {loadingLocation ? (
               <ListItem>
                 <ListItemButton>Loading...</ListItemButton>
@@ -70,14 +70,11 @@ function App() {
             {}
           </List>
         </Box>
-        <Stack sx={{ width: '100%' }} spacing={2}>
+        <Stack className={styles.Stack} spacing={2}>
           <Alert severity='success'>
             Current temperature in {selectedCity}: {loadingWeather ? <span> loading...</span> : dataWeather?.main?.temp}
             {errorWeather && <span>Something went wrong</span>}
           </Alert>
-          {/* <Alert severity='info'>
-            Selected location {selectedCity} gps: {lon} : {lat}
-          </Alert> */}
         </Stack>
       </Container>
     </InputContext.Provider>

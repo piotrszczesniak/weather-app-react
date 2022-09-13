@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
 import { InputBase, Paper } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import styles from './Input.module.scss';
 
-import { debounce } from '../utils/debounce';
+import { debounce } from '../../utils/debounce';
 
 const Input = ({ onClear, inputText, setInputText, fetchLocation }) => {
   //
@@ -25,15 +26,15 @@ const Input = ({ onClear, inputText, setInputText, fetchLocation }) => {
 
   // TODO: add classNames and remove sx
   return (
-    <Paper sx={{ p: '2px 4px', m: '16px 0', display: 'flex', alignItems: 'center', justifyContent: 'start', width: '100%' }}>
+    <Paper className={styles.Paper}>
       <InputBase
-        sx={{ ml: 1, flex: 1 }}
+        className={styles.InputBase}
         placeholder='Check the weather in your city...'
         inputProps={{ 'aria-label': 'check the weather' }}
         value={inputText}
         onChange={handleChange}
       />
-      <SearchIcon sx={{ p: '10px' }} />
+      <SearchIcon className={styles.SearchIcon} />
     </Paper>
   );
 };

@@ -1,0 +1,17 @@
+.Paper {
+  padding: 2px 4px;
+  margin: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+}
+
+.InputBase {
+  margin-left: 16px;
+  flex: 1;
+}
+
+.SearchIcon {
+  padding: 10px;
+}
