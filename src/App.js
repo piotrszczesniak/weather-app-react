@@ -4,8 +4,9 @@ import { useState, useRef } from 'react';
 import { useFetchLocation } from './hooks/useFetchLocation';
 import { useFetchWeather } from './hooks/useFetchWeather';
 import styles from './App.module.scss';
+import { Paper } from '@mui/material';
 
-import { Alert, Box, Container, List, ListItem, ListItemButton, ListItemText, Stack } from '@mui/material';
+import { Alert, Box, Container, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 
 function App() {
   const [inputText, setInputText] = useState('');
@@ -56,7 +57,7 @@ function App() {
                   className='locations-item'
                   onClick={() => {
                     selectItem(item);
-                    setSelectedCity(item.address.name);
+                    setSelectedCity(`${item.display_place} ${item.display_address}`);
                   }}
                   key={index}
                 >
@@ -70,12 +71,15 @@ function App() {
             {}
           </List>
         </Box>
-        <Stack className={styles.Stack} spacing={2}>
-          <Alert severity='success'>
-            Current temperature in {selectedCity}: {loadingWeather ? <span> loading...</span> : dataWeather?.main?.temp}
-            {errorWeather && <span>Something went wrong</span>}
-          </Alert>
-        </Stack>
+        {selectedCity && (
+          <Paper elevation={2}>
+            <Alert severity='success'>
+              Current temperature in <strong>{selectedCity}</strong> is:{' '}
+              {loadingWeather ? <span> loading...</span> : `${dataWeather?.main?.temp} degress of Celcius.`}
+              {errorWeather && <span>Something went wrong</span>}
+            </Alert>
+          </Paper>
+        )}
       </Container>
     </InputContext.Provider>
   );

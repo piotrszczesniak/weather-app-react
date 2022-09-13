@@ -26,7 +26,7 @@ const Input = ({ onClear, inputText, setInputText, fetchLocation }) => {
 
   // TODO: add classNames and remove sx
   return (
-    <Paper className={styles.Paper}>
+    <Paper elevation={3} className={styles.Paper}>
       <InputBase
         className={styles.InputBase}
         placeholder='Check the weather in your city...'
