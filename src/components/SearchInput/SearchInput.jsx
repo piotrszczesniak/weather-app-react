@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import { InputBase, Paper } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import styles from './Input.module.scss';
+import styles from './SearchInput.module.scss';
 
 import { debounce } from '../../utils/debounce';
 
-const Input = ({ onClear, inputText, setInputText, fetchLocation }) => {
+const SearchInput = ({ onClear, value, onChange, onChangeDebounced }) => {
   //
-  const [fetchLocationDebounced, cancelDebounce] = useMemo(() => debounce(fetchLocation, 1000), [fetchLocation]);
+  const [fetchLocationDebounced, cancelDebounce] = useMemo(() => debounce(onChangeDebounced, 1000), [onChangeDebounced]);
 
   // useCallback = useMemo(() => () => ...)
 
@@ -21,17 +21,16 @@ const Input = ({ onClear, inputText, setInputText, fetchLocation }) => {
       onClear();
     }
 
-    setInputText(inputValue);
+    onChange(inputValue);
   };
 
-  // TODO: add classNames and remove sx
   return (
     <Paper elevation={3} className={styles.Paper}>
       <InputBase
         className={styles.InputBase}
         placeholder='Check the weather in your city...'
         inputProps={{ 'aria-label': 'check the weather' }}
-        value={inputText}
+        value={value}
         onChange={handleChange}
       />
       <SearchIcon className={styles.SearchIcon} />
@@ -39,7 +38,7 @@ const Input = ({ onClear, inputText, setInputText, fetchLocation }) => {
   );
 };
 
-export { Input };
+export { SearchInput };
 
 // Fetch --> POST, Delete, Patch -- methods
 // https://github.com/kasivivekkasivivek/Todo-Application-nodejs

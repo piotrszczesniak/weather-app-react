@@ -23,9 +23,13 @@ const useFetchWeather = () => {
       const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?${urlParamsWeather.toString()}`);
 
       const json = await response.json();
+      // console.log(json) -- see what is logged when 404 happens, check status
+      // throw new Error -- throw error directly to catch
       setDataWeather(json);
+      // TODO: handle 404 error
     } catch (error) {
       setErrorWeather(error);
+      console.log(error);
     } finally {
       setLoadingWeather(false);
     }
