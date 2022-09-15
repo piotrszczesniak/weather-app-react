@@ -43,34 +43,30 @@ function App() {
   // ? How to handle error when you enter non existing location?
   // ? What to do with {lon, lat} that are not used here but throw error?
 
-  // if ( error ) {
-  //   return <Box>Error</Box>
-  // }
-
-  // if (loading) {
-  //   return <Box>Loading</Box>
-  // }
-
   return (
     <Container maxWidth='sm'>
       <SearchInput onClear={showHistory} value={inputText} onChange={setInputText} onChangeDebounced={fetchLocation} />
       {/* ! TODO: put it into a separate component */}
       <Box className={styles.Box}>
         <List className={styles.List}>
-          {loadingLocation ? (
+          {loadingLocation && (
             <ListItem>
               <ListItemButton>Loading...</ListItemButton>
-              <ListItemButton>{errorLocation && 'Location not found'}</ListItemButton>
             </ListItem>
-          ) : (
+          )}
+          {errorLocation && (
+            <ListItem>
+              <ListItemButton>Page not found - {errorLocation}</ListItemButton>
+            </ListItem>
+          )}
+          {dataLocation &&
             dataLocation.map((item, index) => (
               <ListItem className='locations-item' onClick={() => handleItemClick(item)} key={index}>
                 <ListItemButton>
                   <ListItemText primary={`${item.display_place}, ${item.display_address} `} />
                 </ListItemButton>
               </ListItem>
-            ))
-          )}
+            ))}
         </List>
       </Box>
       {selectedCity && (

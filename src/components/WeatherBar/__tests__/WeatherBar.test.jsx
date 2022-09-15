@@ -18,3 +18,4 @@ describe('WeatherBar.tsx', () => {
 // to jest to? --> https://reactjs.org/docs/testing.html
 // @testing-library
 // Regular Expressions
+// npm run test - to start running tests

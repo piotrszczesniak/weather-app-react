@@ -15,14 +15,19 @@ const useFetchLocation = () => {
     // console.log(urlParamsLocation.toString());
 
     setLoadingLocation(true);
+    setErrorLocation('');
     try {
       const response = await fetch(`https://api.locationiq.com/v1/autocomplete?${urlParamsLocation.toString()}`);
+      console.log(response);
+
+      if (response.ok === false) {
+        throw new Error(response.status);
+      }
+
       const json = await response.json();
-      // TODO: handle 404 error
       setDataLocation(json);
     } catch (error) {
-      setErrorLocation(error);
-      console.log(error);
+      setErrorLocation(error.message);
     } finally {
       setLoadingLocation(false);
     }

@@ -25,6 +25,7 @@ const useFetchWeather = () => {
       const json = await response.json();
       // console.log(json) -- see what is logged when 404 happens, check status
       // throw new Error -- throw error directly to catch
+      console.log(response);
       setDataWeather(json);
       // TODO: handle 404 error
     } catch (error) {
