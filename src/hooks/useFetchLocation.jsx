@@ -20,7 +20,7 @@ const useFetchLocation = () => {
       const response = await fetch(`https://api.locationiq.com/v1/autocomplete?${urlParamsLocation.toString()}`);
       console.log(response);
 
-      if (response.ok === false) {
+      if (!response.ok) {
         throw new Error(response.status);
       }
 
