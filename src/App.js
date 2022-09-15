@@ -6,8 +6,11 @@ import { useFetchWeather } from './hooks/useFetchWeather';
 import { SearchInput } from './components/SearchInput/SearchInput';
 import { WeatherBar } from './components/WeatherBar/WeatherBar';
 
-import { Box, Container, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Box, Container, List } from '@mui/material';
 import styles from './App.module.scss';
+import { LocationLoading } from './components/LocationLoading/LocationLoading';
+import { LocationError } from './components/LocationError/LocationError';
+import { LocationDataLists } from './components/LocationDataLists/LocationDataLists';
 
 function App() {
   const [inputText, setInputText] = useState('');
@@ -39,36 +42,18 @@ function App() {
     setDataLocation(history.current.reverse());
   };
 
-  // // TODO: implement loading / error
-  // ? How to handle error when you enter non existing location?
-  // ? What to do with {lon, lat} that are not used here but throw error?
-
   return (
     <Container maxWidth='sm'>
       <SearchInput onClear={showHistory} value={inputText} onChange={setInputText} onChangeDebounced={fetchLocation} />
-      {/* ! TODO: put it into a separate component */}
+
       <Box className={styles.Box}>
         <List className={styles.List}>
-          {loadingLocation && (
-            <ListItem>
-              <ListItemButton>Loading...</ListItemButton>
-            </ListItem>
-          )}
-          {errorLocation && (
-            <ListItem>
-              <ListItemButton>Page not found - {errorLocation}</ListItemButton>
-            </ListItem>
-          )}
-          {dataLocation &&
-            dataLocation.map((item, index) => (
-              <ListItem className='locations-item' onClick={() => handleItemClick(item)} key={index}>
-                <ListItemButton>
-                  <ListItemText primary={`${item.display_place}, ${item.display_address} `} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+          {loadingLocation && <LocationLoading />}
+          {errorLocation && <LocationError error={errorLocation} />}
+          {dataLocation && <LocationDataLists data={dataLocation} onClick={handleItemClick} />}
         </List>
       </Box>
+
       {selectedCity && (
         <WeatherBar selectedCity={selectedCity} loading={loadingWeather} temp={dataWeather?.main?.temp} error={errorWeather} />
       )}
