@@ -16,7 +16,6 @@ const SearchInput = ({ onClear, value, onChange, onChangeDebounced }) => {
     if (inputValue.length > 0) {
       fetchLocationDebounced(inputValue);
     } else {
-      // turn off useFetchLocation() when emptying the input
       cancelDebounce();
       onClear();
     }

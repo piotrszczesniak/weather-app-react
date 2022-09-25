@@ -30,7 +30,7 @@ const useFetchWeather = () => {
       // TODO: handle 404 error
     } catch (error) {
       setErrorWeather(error);
-      console.log(error);
+      // console.log(error);
     } finally {
       setLoadingWeather(false);
     }

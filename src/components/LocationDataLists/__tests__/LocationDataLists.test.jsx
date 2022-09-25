@@ -4,8 +4,10 @@ import { LocationDataLists } from '../LocationDataLists';
 
 import { React } from 'react';
 
+// test suite ⤵︎
 describe('LocationDataLists.jsx', () => {
-  it('should display a list of locations', () => {
+  // test case ⤵︎
+  it('should display a list of locations', async () => {
     const data = [
       {
         display_place: 'Krakow',
@@ -19,6 +21,9 @@ describe('LocationDataLists.jsx', () => {
 
     render(<LocationDataLists data={data} onClick={jest.fn()} />); // ? read: jest.fn
 
+    // assertions ⤵︎
+    // expect(await screen.findByText(/Krakow, Polska/)).toBeInTheDocument(); - findBy used for async assertions
+    // expect(screen.queryByText(/Krakowwwww, Polska/)).not.toBeInTheDocument();
     expect(screen.getByText(/Krakow, Polska/)).toBeInTheDocument();
     expect(screen.getByText(/Lublin, Polska/)).toBeInTheDocument();
   });

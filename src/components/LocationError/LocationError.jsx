@@ -5,7 +5,7 @@ import { ListItem, ListItemButton } from '@mui/material';
 const LocationError = ({ error }) => {
   return (
     <ListItem>
-      <ListItemButton>Page not found - {error}</ListItemButton>
+      <ListItemButton>Sorry, there was an error - {error}</ListItemButton>
     </ListItem>
   );
 };

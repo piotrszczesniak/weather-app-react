@@ -23,19 +23,20 @@ function App() {
   // useRef explained --> https://youtu.be/LlvBzyy-558?t=2280
 
   const selectItem = (item) => {
-    const { lon, lat } = item;
+    const { lon, lat, place_id: placeID } = item;
     fetchWeather(lon, lat);
     setInputText('');
     setDataLocation([]);
 
-    const itemID = item.place_id;
+    const itemID = placeID;
     history.current = history.current.filter((data) => data.place_id !== itemID);
     history.current.push(item);
   };
 
   const handleItemClick = (item) => {
+    const { display_place: displayPlace, display_address: displayAddress } = item;
     selectItem(item);
-    setSelectedCity(`${item.display_place} ${item.display_address}`);
+    setSelectedCity(`${displayPlace} ${displayAddress}`);
   };
 
   const showHistory = () => {

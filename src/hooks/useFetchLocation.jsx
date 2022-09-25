@@ -22,11 +22,13 @@ const useFetchLocation = () => {
 
       if (!response.ok) {
         throw new Error(response.status);
+        // read 👉 https://www.geeksforgeeks.org/difference-between-throw-errormsg-and-throw-new-errormsg/
       }
 
       const json = await response.json();
       setDataLocation(json);
     } catch (error) {
+      console.log(error);
       setErrorLocation(error.message);
     } finally {
       setLoadingLocation(false);
